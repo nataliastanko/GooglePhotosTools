@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Google photos add to album filter
-// @version      0.1
+// @version      0.2
 // @description  Filter through list of albums when adding to album action
 // @author       nataliastanko
 // @namespace    https://github.com/nataliastanko/
@@ -14,7 +14,6 @@
 // @supportURL   https://github.com/nataliastanko/GooglePhotosTools/issues
 // @grant        none
 // @license      MIT
-// @run-at context-menu
 
 // ==/UserScript==
 
