@@ -9,9 +9,12 @@
 1. Search through the list of albums
 
 ## Install
+
 1. [openuserjs.org - Google photos add to album filter](https://openuserjs.org/scripts/nataliastanko/Google_photos_add_to_album_filter)
 
 ## Changelog
+
+* 29-May-2020 Change query selector for Album list
 * 9-Apr-2019 Project starts; Jump to first found album name phrase.
 
 ## License

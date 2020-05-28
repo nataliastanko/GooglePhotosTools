@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Google photos add to album filter
-// @version      0.2
+// @version      0.3
 // @description  Filter through list of albums when adding to album action
 // @author       nataliastanko
 // @namespace    https://github.com/nataliastanko/
@@ -32,7 +32,7 @@
   function initObserver() {
     var targetNode = document.querySelector('body');
     // Options for the observer (which mutations to observe)
-    
+
     // Callback function to execute when mutations are observed
     var callback = function(mutationsList, observer) {
       for(var mutation of mutationsList) {
@@ -45,17 +45,17 @@
         }
       }
     };
-    
+
     // Create an observer instance linked to the callback function
     var observer = new MutationObserver(callback);
     var config = { attributes: false, childList: true, subtree: false };
-    
+
     // Start observing the target node for configured mutations
     observer.observe(targetNode, config);
   }
 
   function insertSearchForm (el) {
- 
+
     var input = document.createElement('input');
     input.setAttribute('type', 'text');
     input.setAttribute('value', '');
@@ -71,13 +71,13 @@
     // add event
     button.onclick = function() {
       var albumPhrase = input.value;
-      var albumList = document.querySelectorAll('content li');
+      var albumList = document.querySelectorAll('[aria-label="Album list"] li');
       for (var album of albumList) {
         var albumName = album.children[1].children[0].innerHTML;
 
         var reg = new RegExp(albumPhrase,'i');
         var found = albumName.match(reg);
-          
+
         if (found) {
           // jump to first
           album.scrollIntoView();
@@ -85,7 +85,7 @@
         }
       }
     };
-      
+
     el.appendChild(input);
     el.appendChild(button);
   }
