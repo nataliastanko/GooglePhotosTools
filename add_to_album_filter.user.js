@@ -1,6 +1,7 @@
 // ==UserScript==
 // @name         Google photos add to album filter
-// @version      0.3
+// @icon         https://ssl.gstatic.com/images/branding/product/1x/photos_64dp.png
+// @version      0.4
 // @description  Filter through list of albums when adding to album action
 // @author       nataliastanko
 // @namespace    https://github.com/nataliastanko/
@@ -17,14 +18,16 @@
 
 // ==/UserScript==
 
+/* jshint esversion: 6 */
+
 (function() {
   'use strict';
 
   function getAlbumsModal() {
-    const headings = document.querySelectorAll('[role="heading"]')
+    const headings = document.querySelectorAll('[role="heading"]');
     const match = Array.prototype.find.call(headings, function(node) {
       return node.textContent === 'Add to';
-    })
+    });
 
     return match;
   }

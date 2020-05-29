@@ -14,7 +14,7 @@
 
 ## Changelog
 
-* 29-May-2020 Change query selector for Album list
+* 29-May-2020 Change query selector for album list, add icon, fix jshint warnings.
 * 9-Apr-2019 Project starts; Jump to first found album name phrase.
 
 ## License
