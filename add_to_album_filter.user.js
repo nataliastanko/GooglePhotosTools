@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         Google photos add to album filter
 // @icon         https://ssl.gstatic.com/images/branding/product/1x/photos_64dp.png
-// @version      0.4
+// @version      0.5
 // @description  Filter through list of albums when adding to album action
 // @author       nataliastanko
 // @namespace    https://github.com/nataliastanko/
 // @contactURL   https://nataliastanko.com
-// @copyright    2019, nataliastanko (https://github.com/nataliastanko/)
+// @copyright    2019, 2020, nataliastanko (https://github.com/nataliastanko/)
 // @match        https://photos.google.com
 // @include      https://photos.google.com/*
 // @updateURL    https://raw.githubusercontent.com/nataliastanko/GooglePhotosTools/master/add_to_album_filter.user.js
@@ -57,6 +57,24 @@
     observer.observe(targetNode, config);
   }
 
+  function search(input) {
+    // add event
+    var albumPhrase = input.value;
+    var albumList = document.querySelectorAll('[aria-label="Album list"] li');
+    for (var album of albumList) {
+      var albumName = album.children[1].children[0].innerHTML;
+
+      var reg = new RegExp(albumPhrase,'i');
+      var found = albumName.match(reg);
+
+      if (found) {
+          // jump to first
+          album.scrollIntoView();
+          return;
+      }
+    }
+  }
+
   function insertSearchForm (el) {
 
     var input = document.createElement('input');
@@ -65,29 +83,22 @@
     input.setAttribute('placeholder', 'album name');
     input.setAttribute('style', 'margin: 0 5px; padding: 5px;');
 
+    input.onkeypress = function(event) {
+      if (event.key == "Enter") {
+        search(input);
+      }
+    }
+
     var button = document.createElement('button');
     button.setAttribute('type', 'button');
     button.setAttribute('content', '');
     button.innerHTML = 'Search';
     button.setAttribute('style', 'padding: 5px;');
 
-    // add event
+    // call search on click
     button.onclick = function() {
-      var albumPhrase = input.value;
-      var albumList = document.querySelectorAll('[aria-label="Album list"] li');
-      for (var album of albumList) {
-        var albumName = album.children[1].children[0].innerHTML;
-
-        var reg = new RegExp(albumPhrase,'i');
-        var found = albumName.match(reg);
-
-        if (found) {
-          // jump to first
-          album.scrollIntoView();
-          return;
-        }
-      }
-    };
+        search(input);
+    }
 
     el.appendChild(input);
     el.appendChild(button);
